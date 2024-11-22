@@ -1,18 +1,25 @@
-import { HStack, Image } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.webp';
+import colorLogo from '../assets/colorLogo.png';
 import ColorModeSwitch from './ColorModeSwitch';
-import SearchInput from './SearchInput';
 
 const NavBar = () => {
 	return (
-		<HStack padding={10}>
-			<Link to="/">
-				<Image src={logo} boxSize="60px" objectFit="cover" />
-			</Link>
-			<SearchInput />
-			<ColorModeSwitch />
-		</HStack>
+		<>
+			<Box marginX={10} marginY={5}>
+				<Link to="/">
+					<Image
+						src={colorLogo}
+						boxSize="100px"
+						objectFit="cover"
+						borderRadius={30}
+					/>
+				</Link>
+			</Box>
+			<Box marginX={12}>
+				<ColorModeSwitch />
+			</Box>
+		</>
 	);
 };
 

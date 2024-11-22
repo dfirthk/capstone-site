@@ -1,20 +1,6 @@
-import {
-	Box,
-	Button,
-	Flex,
-	Grid,
-	GridItem,
-	Heading,
-	Show,
-} from '@chakra-ui/react';
+import { Box, Button, Grid, GridItem, Heading } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import GameGrid from '../components/GameGrid';
-import GameHeading from '../components/GameHeading';
-import GenreList from '../components/GenreList';
-import NavBarSearch from '../components/NavBarSearch';
 import PlatformGrid from '../components/PlatformGrid';
-import PlatformSelector from '../components/PlatformSelector';
-import SortSelector from '../components/SortSelector';
 
 const PlatformPicker = () => {
 	return (

@@ -5,6 +5,7 @@ import LandingLayout from './pages/LandingLayout';
 import LandingPage from './pages/LandingPage';
 import Layout from './pages/Layout';
 import Library from './pages/Library';
+import PlatformPicker from './pages/PlatformPicker';
 
 const router = createBrowserRouter([
 	{
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
 			{ index: true, element: <LandingPage /> },
 			{ path: 'games/:slug', element: <GameDetailPage /> },
 			{ path: '/library', element: <Library /> },
+			{ path: '/platforms', element: <PlatformPicker /> },
 		],
 	},
 ]);

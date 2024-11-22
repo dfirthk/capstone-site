@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import colorLogo from '../assets/colorLogo.png';
 
 const Landing = () => {
@@ -24,15 +25,17 @@ const Landing = () => {
 				Ever feel like you can never find the perfect game for you? We are here
 				to help!
 			</Text>
-			<Button
-				marginY={5}
-				size="lg"
-				borderRadius={15}
-				color="#8c52ff"
-				variant="ghost"
-			>
-				Get Started
-			</Button>
+			<Link to="/platforms">
+				<Button
+					marginY={5}
+					size="lg"
+					borderRadius={15}
+					color="#8c52ff"
+					variant="ghost"
+				>
+					Get Started
+				</Button>
+			</Link>
 		</Flex>
 	);
 };

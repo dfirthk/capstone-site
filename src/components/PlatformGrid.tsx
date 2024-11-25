@@ -1,19 +1,12 @@
 import { SimpleGrid, Text } from '@chakra-ui/react';
 import React from 'react';
-import useGames from '../hooks/useGames';
-import GameCard from './GameCard';
+import usePlatforms from '../hooks/usePlatforms';
 import GameCardContainer from './GameCardContainer';
 import GameCardSkeleton from './GameCardSkeleton';
+import PlatformCard from './PlatformCard';
 
 const GameGrid = () => {
-	const {
-		data,
-		error,
-		isLoading,
-		isFetchingNextPage,
-		fetchNextPage,
-		hasNextPage,
-	} = useGames();
+	const { data, error, isLoading } = usePlatforms();
 	const skeletons = [1, 2, 3, 4, 5, 6];
 
 	if (error) return <Text> {error.message} </Text>;
@@ -32,9 +25,9 @@ const GameGrid = () => {
 				))}
 			{data?.pages.map((page, index) => (
 				<React.Fragment key={index}>
-					{page.results.map((platform) => (
+					{page.results.map((platform?) => (
 						<GameCardContainer key={platform.id}>
-							<GameCard game={platform} />
+							<PlatformCard platform={platform} />
 						</GameCardContainer>
 					))}
 				</React.Fragment>

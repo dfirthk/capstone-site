@@ -11,7 +11,7 @@ const PlatformPicker = () => {
 			}}
 			templateColumns={{
 				base: '1fr',
-				lg: '200px',
+				lg: '200px 1fr',
 			}}
 		>
 			<GridItem area="main">

@@ -29,6 +29,11 @@ const PlatformPicker = () => {
 				alignItems="center"
 				paddingX={10}
 				paddingY={4}
+				position="fixed"
+				bottom={0}
+				width="100%"
+				height="100px"
+				bgColor="gray.800"
 			>
 				<Link to="/genres">
 					<Button

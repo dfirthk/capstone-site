@@ -3,5 +3,6 @@ export default interface Platform {
    id: number;
    name: string;
    slug: string;
-   parent_platforms?: string;
+   platforms?: string;
+   image_background?: any;
 }

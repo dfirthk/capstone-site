@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ms from "ms";
-import Platform from "../entities/Platform";
+import Platform from "../entities/ParentPlatform";
 import APIClient, { FetchResponse } from "../services/api-client";
 import useGameQueryStore from "../store";
 
@@ -10,7 +10,7 @@ export interface PlatformQuery {
 	searchText: string;
  }
  
-const apiClient = new APIClient<Platform>('/platforms/lists/parents');
+const apiClient = new APIClient<Platform>('/platforms');
 
 const getPlatforms = () => {
 	const platformQuery = useGameQueryStore(s => s.gameQuery);

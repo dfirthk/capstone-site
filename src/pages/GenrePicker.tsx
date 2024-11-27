@@ -2,7 +2,7 @@ import { Box, Button, Grid, GridItem, Heading } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import GenreGrid from '../components/GenreGrid';
 
-const PlatformPicker = () => {
+const GenrePicker = () => {
 	return (
 		<Grid
 			templateAreas={{
@@ -36,13 +36,7 @@ const PlatformPicker = () => {
 				bgColor="rgb(30 19 53)"
 			>
 				<Link to="/gamepicker">
-					<Button
-						marginY={5}
-						size="lg"
-						borderRadius={15}
-						color="#8c52ff"
-						variant="ghost"
-					>
+					<Button marginY={5} size="lg" borderRadius={15} border={5}>
 						Next
 					</Button>
 				</Link>
@@ -51,4 +45,4 @@ const PlatformPicker = () => {
 	);
 };
 
-export default PlatformPicker;
+export default GenrePicker;

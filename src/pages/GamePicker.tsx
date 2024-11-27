@@ -1,8 +1,15 @@
-import { Box, Button, Flex, Grid, GridItem, Show } from '@chakra-ui/react';
+import {
+	Box,
+	Button,
+	Flex,
+	Grid,
+	GridItem,
+	Heading,
+	Show,
+} from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import GameHeading from '../components/GameHeading';
+import GameGrid from '../components/GameGrid';
 import GenreList from '../components/GenreList';
-import GameGrid from '../components/InfiniteGameGrid';
 import NavBarSearch from '../components/NavBarSearch';
 import PlatformSelector from '../components/PlatformSelector';
 import SortSelector from '../components/SortSelector';
@@ -23,13 +30,15 @@ const GamePicker = () => {
 				<NavBarSearch />
 			</GridItem>
 			<Show above="lg">
-				<GridItem area="aside" paddingX={5}>
+				<GridItem area="aside" paddingX={5} marginY={10}>
 					<GenreList />
 				</GridItem>
 			</Show>
 			<GridItem area="main">
-				<Box paddingLeft={9}>
-					<GameHeading />
+				<Box paddingLeft={3}>
+					<Heading as="h1" marginY={5} fontSize="5xl">
+						Pick a few games you love
+					</Heading>
 					<Flex>
 						<Box marginRight={5}>
 							<PlatformSelector />

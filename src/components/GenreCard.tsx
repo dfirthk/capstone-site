@@ -1,6 +1,5 @@
 import { Card, CardBody, Heading, Image } from '@chakra-ui/react';
 import Genre from '../entities/Genre';
-import Platform from '../entities/Platform';
 import getCroppedImageURL from '../services/image-url';
 
 interface Props {

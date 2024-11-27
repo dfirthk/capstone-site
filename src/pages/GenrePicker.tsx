@@ -1,7 +1,6 @@
 import { Box, Button, Grid, GridItem, Heading } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import GenreGrid from '../components/GenreGrid';
-import PlatformGrid from '../components/PlatformGrid';
 
 const PlatformPicker = () => {
 	return (

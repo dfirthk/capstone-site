@@ -1,5 +1,6 @@
 import { Box, Button, Grid, GridItem, Heading } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import GenreGrid from '../components/GenreGrid';
 import PlatformGrid from '../components/PlatformGrid';
 
 const PlatformPicker = () => {
@@ -20,7 +21,7 @@ const PlatformPicker = () => {
 						Select the genres you'd like to play on
 					</Heading>
 				</Box>
-				<PlatformGrid />
+				<GenreGrid />
 			</GridItem>
 			<GridItem
 				area="footer"

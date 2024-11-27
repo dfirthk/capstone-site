@@ -1,12 +1,12 @@
 import { SimpleGrid, Text } from '@chakra-ui/react';
 import React from 'react';
-import getPlatforms from '../hooks/getPlatforms';
+import getGenres from '../hooks/getGenres';
 import GameCardContainer from './GameCardContainer';
 import GameCardSkeleton from './GameCardSkeleton';
-import PlatformCard from './PlatformCard';
+import GenreCard from './GenreCard';
 
-const PlatformGrid = () => {
-	const { data, error, isLoading } = getPlatforms();
+const GenreGrid = () => {
+	const { data, error, isLoading } = getGenres();
 	const skeletons = [1, 2, 3, 4, 5, 6];
 
 	if (error) return <Text> {error.message} </Text>;
@@ -25,9 +25,9 @@ const PlatformGrid = () => {
 				))}
 			{data?.pages.map((page, index) => (
 				<React.Fragment key={index}>
-					{page.results.map((platform) => (
-						<GameCardContainer key={platform.id}>
-							<PlatformCard platform={platform} />
+					{page.results.map((genre) => (
+						<GameCardContainer key={genre.id}>
+							<GenreCard genre={genre} />
 						</GameCardContainer>
 					))}
 				</React.Fragment>
@@ -36,4 +36,4 @@ const PlatformGrid = () => {
 	);
 };
 
-export default PlatformGrid;
+export default GenreGrid;

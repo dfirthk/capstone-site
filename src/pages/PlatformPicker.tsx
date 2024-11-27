@@ -33,16 +33,10 @@ const PlatformPicker = () => {
 				bottom={0}
 				width="100%"
 				height="100px"
-				bgColor="gray.800"
+				bgColor="rgb(30 19 53)"
 			>
 				<Link to="/genres">
-					<Button
-						marginY={5}
-						size="lg"
-						borderRadius={15}
-						color="#8c52ff"
-						variant="ghost"
-					>
+					<Button marginY={5} size="lg" borderRadius={15} border={5}>
 						Next
 					</Button>
 				</Link>

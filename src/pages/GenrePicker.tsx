@@ -17,7 +17,7 @@ const PlatformPicker = () => {
 			<GridItem area="main">
 				<Box padding={10}>
 					<Heading fontSize="4xl">
-						Select the platforms you'd like to play on
+						Select the genres you'd like to play on
 					</Heading>
 				</Box>
 				<PlatformGrid />
@@ -30,7 +30,7 @@ const PlatformPicker = () => {
 				paddingX={10}
 				paddingY={4}
 			>
-				<Link to="/library">
+				<Link to="/gamepicker">
 					<Button
 						marginY={5}
 						size="lg"

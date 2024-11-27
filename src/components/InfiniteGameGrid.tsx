@@ -6,7 +6,7 @@ import GameCard from './GameCard';
 import GameCardContainer from './GameCardContainer';
 import GameCardSkeleton from './GameCardSkeleton';
 
-const GameGrid = () => {
+const InfiniteGameGrid = () => {
 	const {
 		data,
 		error,
@@ -54,4 +54,4 @@ const GameGrid = () => {
 	);
 };
 
-export default GameGrid;
+export default InfiniteGameGrid;

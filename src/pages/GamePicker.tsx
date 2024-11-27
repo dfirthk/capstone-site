@@ -1,7 +1,8 @@
-import { Box, Flex, Grid, GridItem, Show } from '@chakra-ui/react';
-import GameGrid from '../components/GameGrid';
+import { Box, Button, Flex, Grid, GridItem, Show } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import GameHeading from '../components/GameHeading';
 import GenreList from '../components/GenreList';
+import GameGrid from '../components/InfiniteGameGrid';
 import NavBarSearch from '../components/NavBarSearch';
 import PlatformSelector from '../components/PlatformSelector';
 import SortSelector from '../components/SortSelector';
@@ -11,7 +12,7 @@ const GamePicker = () => {
 		<Grid
 			templateAreas={{
 				base: `"nav main"`,
-				lg: `"nav nav" "aside main"`,
+				lg: `"nav nav" "aside main" "footer footer"`,
 			}}
 			templateColumns={{
 				base: '1fr',
@@ -37,6 +38,25 @@ const GamePicker = () => {
 					</Flex>
 				</Box>
 				<GameGrid />
+			</GridItem>
+			<GridItem
+				area="footer"
+				display="flex"
+				justifyContent="flex-end"
+				alignItems="center"
+				paddingX={10}
+				paddingY={4}
+				position="fixed"
+				bottom={0}
+				width="100%"
+				height="100px"
+				bgColor="rgb(30 19 53)"
+			>
+				<Link to="/gamepicker">
+					<Button marginY={5} size="lg" borderRadius={15} border={5}>
+						Run Results
+					</Button>
+				</Link>
 			</GridItem>
 		</Grid>
 	);

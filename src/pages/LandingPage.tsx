@@ -1,7 +1,7 @@
 import { Box, Flex, Grid, GridItem, SimpleGrid } from '@chakra-ui/react';
 import React from 'react';
-import GameGrid from '../components/GameGrid';
 import GameHeading from '../components/GameHeading';
+import GameGrid from '../components/InfiniteGameGrid';
 import Landing from '../components/Landing';
 import NavBar from '../components/NavBar';
 import PlatformSelector from '../components/PlatformSelector';

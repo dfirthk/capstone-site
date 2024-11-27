@@ -37,7 +37,7 @@ const PlatformPicker = () => {
 			>
 				<Link to="/genres">
 					<Button marginY={5} size="lg" borderRadius={15} border={5}>
-						Next
+						Pick Genres
 					</Button>
 				</Link>
 			</GridItem>

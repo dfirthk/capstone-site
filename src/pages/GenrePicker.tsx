@@ -37,7 +37,7 @@ const GenrePicker = () => {
 			>
 				<Link to="/gamepicker">
 					<Button marginY={5} size="lg" borderRadius={15} border={5}>
-						Next
+						Pick Games
 					</Button>
 				</Link>
 			</GridItem>

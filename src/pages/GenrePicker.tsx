@@ -30,7 +30,7 @@ const PlatformPicker = () => {
 				paddingX={10}
 				paddingY={4}
 			>
-				<Link to="/genres">
+				<Link to="/library">
 					<Button
 						marginY={5}
 						size="lg"

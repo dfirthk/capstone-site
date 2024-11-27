@@ -3,6 +3,12 @@ import ms from "ms";
 import Platform from "../entities/Platform";
 import APIClient, { FetchResponse } from "../services/api-client";
 import useGameQueryStore from "../store";
+
+export interface GameQuery { 
+	platform: Platform | null;
+	sortOrder: string;
+	searchText: string;
+ }
  
 const apiClient = new APIClient<Platform>('/platforms/lists/parents');
 

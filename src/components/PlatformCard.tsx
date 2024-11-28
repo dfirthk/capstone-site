@@ -1,5 +1,4 @@
 import { Box, Card, CardBody, Heading, Image } from '@chakra-ui/react';
-import { isObject } from 'util';
 import Platform from '../entities/Platform';
 import { useSelection } from '../hooks/cardSelection';
 import getCroppedImageURL from '../services/image-url';

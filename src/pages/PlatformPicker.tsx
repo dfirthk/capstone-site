@@ -1,4 +1,4 @@
-import { Box, Button, Grid, GridItem, Heading } from '@chakra-ui/react';
+import { Box, Button, Grid, GridItem, Heading, HStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import PlatformGrid from '../components/PlatformGrid';
 
@@ -24,22 +24,26 @@ const PlatformPicker = () => {
 			</GridItem>
 			<GridItem
 				area="footer"
-				display="flex"
-				justifyContent="flex-end"
 				alignItems="center"
-				paddingX={10}
-				paddingY={4}
 				position="fixed"
 				bottom={0}
 				width="100%"
 				height="100px"
 				bgColor="rgb(30 19 53)"
 			>
-				<Link to="/genres">
-					<Button marginY={5} size="lg" borderRadius={15} border={5}>
-						Pick Genres
-					</Button>
-				</Link>
+				<HStack justifyContent="right">
+					<Link to="/genres">
+						<Button
+							marginY={5}
+							size="lg"
+							borderRadius={15}
+							border={5}
+							marginX={10}
+						>
+							Pick Genres
+						</Button>
+					</Link>
+				</HStack>
 			</GridItem>
 		</Grid>
 	);

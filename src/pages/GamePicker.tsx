@@ -5,6 +5,7 @@ import {
 	Grid,
 	GridItem,
 	Heading,
+	HStack,
 	Show,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
@@ -50,22 +51,37 @@ const GamePicker = () => {
 			</GridItem>
 			<GridItem
 				area="footer"
-				display="flex"
-				justifyContent="flex-end"
-				alignItems="center"
-				paddingX={10}
-				paddingY={4}
 				position="fixed"
 				bottom={0}
 				width="100%"
 				height="100px"
 				bgColor="rgb(30 19 53)"
+				zIndex={10}
 			>
-				<Link to="/gamepicker">
-					<Button marginY={5} size="lg" borderRadius={15} border={5}>
-						Run Results
-					</Button>
-				</Link>
+				<HStack justifyContent="space-between" height="100%" align="center">
+					<Link to="/genres">
+						<Button
+							marginY={5}
+							size="lg"
+							borderRadius={15}
+							border={5}
+							marginX={10}
+						>
+							Pick Genres
+						</Button>
+					</Link>
+					<Link to="/gamepicker">
+						<Button
+							marginY={5}
+							size="lg"
+							borderRadius={15}
+							border={5}
+							marginX={10}
+						>
+							Run Results
+						</Button>
+					</Link>
+				</HStack>
 			</GridItem>
 		</Grid>
 	);

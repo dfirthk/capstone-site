@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { GameRecommender } from './components/GameRecommender';
 import ErrorPage from './pages/ErrorPage';
 import GameDetailPage from './pages/GameDetailPage';
 import GamePicker from './pages/GamePicker';
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
 			{ path: '/platforms', element: <PlatformPicker /> },
 			{ path: '/genres', element: <GenrePicker /> },
 			{ path: 'gamepicker', element: <GamePicker /> },
+			{ path: '/results', element: <GameRecommender /> },
 		],
 	},
 ]);

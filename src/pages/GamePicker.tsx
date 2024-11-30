@@ -70,7 +70,7 @@ const GamePicker = () => {
 							Pick Genres
 						</Button>
 					</Link>
-					<Link to="/gamepicker">
+					<Link to="/results">
 						<Button
 							marginY={5}
 							size="lg"

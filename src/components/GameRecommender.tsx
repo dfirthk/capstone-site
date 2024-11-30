@@ -18,16 +18,16 @@ interface Game {
 	id: number;
 	name: string;
 	genres: Genre[];
-	platform: Platform[];
+	platforms: Platform[];
 }
 
 // The GameRecommender component
 export const GameRecommender = () => {
 	const { selectedItems, toggleSelection } = useSelection(); // Track user selections
 
-	const [games, setGames] = useState<any[]>([]); // Stores game data from API
-	const [genres, setGenres] = useState<any[]>([]); // Stores genre data from API
-	const [platforms, setPlatforms] = useState<any[]>([]); // Stores platform data from API
+	const [games, setGames] = useState<Game[]>([]); // Stores game data from API
+	const [genres, setGenres] = useState<Genre[]>([]); // Stores genre data from API
+	const [platforms, setPlatforms] = useState<Platform[]>([]); // Stores platform data from API
 
 	const genreClient = new APICleint<Genre>('genres');
 	const platformClient = new APICleint<Platform>('platforms');
@@ -60,6 +60,7 @@ export const GameRecommender = () => {
 				? 1
 				: 0
 		);
+
 		const platformVector = platforms.map((platform) =>
 			selectedItems.some(
 				(item) => item.type === 'platform' && item.value === platform.name
@@ -67,6 +68,7 @@ export const GameRecommender = () => {
 				? 1
 				: 0
 		);
+
 		const gameVector = games.map((game) =>
 			selectedItems.some(
 				(item) => item.type === 'game' && item.value === game.name
@@ -75,6 +77,7 @@ export const GameRecommender = () => {
 				: 0
 		);
 
+		// Return the user vector as an object with keys 'genres', 'platforms', and 'games'
 		return {
 			genres: genreVector,
 			platforms: platformVector,
@@ -87,12 +90,11 @@ export const GameRecommender = () => {
 	// Calculate similarity scores for each game
 	const gameSimilarities = games.map((game) => {
 		const gameGenreVector = genres.map((genre) =>
-			game.genres.some((g: { name: any }) => g.name === genre.name) ? 1 : 0
+			game.genres.some((g) => g.name === genre.name) ? 1 : 0
 		);
+
 		const gamePlatformVector = platforms.map((platform) =>
-			game.platforms.some((p: { name: any }) => p.name === platform.name)
-				? 1
-				: 0
+			game.platforms.some((p) => p.name === platform.name) ? 1 : 0
 		);
 
 		// Calculate similarity for genre and platform separately
@@ -104,12 +106,14 @@ export const GameRecommender = () => {
 			userVector.platforms,
 			gamePlatformVector
 		);
+
+		// Combine the genre and platform similarity scores
 		const similarity = genreSimilarity + platformSimilarity;
 
 		return { gameName: game.name, similarity };
 	});
 
-	// Sort games by similarity
+	// Sort games by similarity in descending order
 	const recommendedGames = gameSimilarities.sort(
 		(a, b) => b.similarity - a.similarity
 	);
@@ -120,7 +124,7 @@ export const GameRecommender = () => {
 			<ul>
 				{recommendedGames.map((game) => (
 					<li key={game.gameName}>
-						{game.gameName} - Similarity: {game.similarity}
+						{game.gameName} - Similarity: {game.similarity.toFixed(2)}
 					</li>
 				))}
 			</ul>

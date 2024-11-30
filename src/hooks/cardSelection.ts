@@ -1,32 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type SelectionType = 'game' | 'platform' | 'genre';
 
 interface Selection {
-   type: SelectionType;
-   value: string;
+  type: SelectionType;
+  value: string;
 }
 
 export const useSelection = () => {
-   const [selectedItems, setSelectedItems] = useState<Selection[]>([]);
+  const [selectedItems, setSelectedItems] = useState<Selection[]>([]);
 
-   const toggleSelection = (type: SelectionType, value: string) => {
-      setSelectedItems(prevItems => {
-         
-         const existingItem = prevItems.some(item => item.type === type && item.value === value);
-         
-         
-         let updatedItems;
-         if (existingItem) {
-            updatedItems = prevItems.filter(item => !(item.type === type && item.value === value));
-         } else {
-            updatedItems = [...prevItems, { type, value }];
-         }
+  const toggleSelection = (type: SelectionType, value: string) => {
+    setSelectedItems((prevItems) => {
+      const existingItem = prevItems.find(
+        (item) => item.type === type && item.value === value
+      );
+  
+      const updatedSelection = existingItem
+        ? prevItems.filter((item) => item.type !== type || item.value !== value)
+        : [...prevItems, { type, value }];
+  
+      console.log('Updated Selection:', updatedSelection); // Log to verify
+      return updatedSelection;
+    });
+  };
+  
 
-         console.log('Current Selection:', updatedItems);
-         return updatedItems;
-      });
-   };
-
-   return { selectedItems, toggleSelection };
+  return { selectedItems, toggleSelection };
 };

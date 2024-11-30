@@ -13,6 +13,7 @@ const GenreCard = ({ genre }: Props) => {
 	const isSelected = selectedItems.some(
 		(item) => item.type === 'genre' && item.value === genre.name
 	);
+
 	return (
 		<Box
 			as="button"

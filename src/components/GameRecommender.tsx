@@ -1,8 +1,9 @@
-import { Heading } from '@chakra-ui/react';
+import { Box, Heading, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useSelection } from '../hooks/cardSelection'; // The useSelection hook
 import { cosineSimilarity } from '../hooks/cosineSimilarity'; // The cosineSimilarity function
+import { useSelection } from '../hooks/platformSelection'; // The useSelection hook
 import APICleint, { FetchResponse } from '../services/api-client';
+import GameCardContainer from './GameCardContainer';
 
 interface Genre {
 	id: number;
@@ -28,6 +29,9 @@ export const GameRecommender = () => {
 	const [games, setGames] = useState<Game[]>([]); // Stores game data from API
 	const [genres, setGenres] = useState<Genre[]>([]); // Stores genre data from API
 	const [platforms, setPlatforms] = useState<Platform[]>([]); // Stores platform data from API
+	const [recommendedGames, setRecommendedGames] = useState<
+		{ game: Game; score: number }[]
+	>([]);
 
 	const genreClient = new APICleint<Genre>('genres');
 	const platformClient = new APICleint<Platform>('platforms');
@@ -51,83 +55,52 @@ export const GameRecommender = () => {
 			.catch((err) => console.error('Error Fetching Games', err));
 	}, []);
 
-	// Generate user vector based on selections
-	const generateUserVector = () => {
-		const genreVector = genres.map((genre) =>
-			selectedItems.some(
-				(item) => item.type === 'genre' && item.value === genre.name
-			)
-				? 1
-				: 0
-		);
+	useEffect(() => {
+		console.log('Selected Items:', selectedItems);
+		console.log('Games:', games);
 
-		const platformVector = platforms.map((platform) =>
-			selectedItems.some(
-				(item) => item.type === 'platform' && item.value === platform.name
-			)
-				? 1
-				: 0
-		);
+		if (selectedItems.length > 0 && games.length > 0) {
+			const scores = games.map((game) => {
+				const gameIds = game.genres
+					.map((genre) => genre.id)
+					.concat(game.platforms.map((platform) => platform.id));
+				const selectedIds = selectedItems.map((item) => item.id);
+				const score = cosineSimilarity(selectedIds, gameIds);
+				console.log(
+					`Game: ${game.name}, Selected IDs: ${selectedIds}, Game IDs: ${gameIds}, Similarity Score: ${score}`
+				);
+				return { game, score };
+			});
 
-		const gameVector = games.map((game) =>
-			selectedItems.some(
-				(item) => item.type === 'game' && item.value === game.name
-			)
-				? 1
-				: 0
-		);
+			// Sort games by similarity score in descending order
+			scores.sort((a, b) => b.score - a.score);
 
-		// Return the user vector as an object with keys 'genres', 'platforms', and 'games'
-		return {
-			genres: genreVector,
-			platforms: platformVector,
-			games: gameVector,
-		};
-	};
+			// Log the sorted scores
+			console.log('Sorted Scores:', scores);
 
-	const userVector = generateUserVector();
+			// Update the recommended games state
+			setRecommendedGames(scores);
+		}
+	}, [selectedItems, games]);
 
-	// Calculate similarity scores for each game
-	const gameSimilarities = games.map((game) => {
-		const gameGenreVector = genres.map((genre) =>
-			game.genres.some((g) => g.name === genre.name) ? 1 : 0
-		);
-
-		const gamePlatformVector = platforms.map((platform) =>
-			game.platforms.some((p) => p.name === platform.name) ? 1 : 0
-		);
-
-		// Calculate similarity for genre and platform separately
-		const genreSimilarity = cosineSimilarity(
-			userVector.genres,
-			gameGenreVector
-		);
-		const platformSimilarity = cosineSimilarity(
-			userVector.platforms,
-			gamePlatformVector
-		);
-
-		// Combine the genre and platform similarity scores
-		const similarity = genreSimilarity + platformSimilarity;
-
-		return { gameName: game.name, similarity };
-	});
-
-	// Sort games by similarity in descending order
-	const recommendedGames = gameSimilarities.sort(
-		(a, b) => b.similarity - a.similarity
-	);
+	useEffect(() => {
+		console.log('Recommended Games:', recommendedGames);
+	}, [recommendedGames]);
 
 	return (
 		<div>
 			<Heading>Recommended Games</Heading>
-			<ul>
-				{recommendedGames.map((game) => (
-					<li key={game.gameName}>
-						{game.gameName} - Similarity: {game.similarity.toFixed(2)}
-					</li>
-				))}
-			</ul>
+			{recommendedGames.length === 0 && (
+				<Text>No recommendations available.</Text>
+			)}
+			{recommendedGames.map(({ game, score }) => (
+				<GameCardContainer key={game.id}>
+					<Box borderWidth="1px" borderRadius="lg" p={4} mb={4}>
+						<Text fontSize="xl">{game.name}</Text>
+						<Text>Similarity Score: {score.toFixed(2)}</Text>
+					</Box>
+				</GameCardContainer>
+			))}
 		</div>
 	);
 };

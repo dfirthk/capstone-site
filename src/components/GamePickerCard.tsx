@@ -1,6 +1,7 @@
 import { Box, Card, CardBody, Heading, HStack, Image } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import Game from '../entities/Game';
-import { useSelection } from '../hooks/cardSelection';
+import { useSelection } from '../hooks/platformSelection';
 import getCroppedImageURL from '../services/image-url';
 import CriticScore from './CriticScore';
 import PlatformIconList from './PlatformIconList';
@@ -16,6 +17,17 @@ const GameCard = ({ game }: Props) => {
 		(item) => item.type === 'game' && item.value === game.name
 	);
 
+	const handleClick = () => {
+		toggleSelection('game', game.name);
+		setTimeout(() => {
+			console.log('Selected Items:', selectedItems);
+		}, 0);
+	};
+
+	useEffect(() => {
+		console.log('Selected Items:', selectedItems);
+	}, [selectedItems]);
+
 	return (
 		<Box
 			as="button"
@@ -24,7 +36,7 @@ const GameCard = ({ game }: Props) => {
 			borderColor={isSelected ? 'green.500' : 'gray.200'}
 			borderRadius="lg"
 			_hover={{ borderColor: 'green.400' }}
-			onClick={() => toggleSelection('game', game.name)}
+			onClick={handleClick}
 			transition="border-color 0.2s"
 		>
 			<Card>

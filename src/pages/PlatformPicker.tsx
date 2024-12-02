@@ -32,7 +32,7 @@ const PlatformPicker = () => {
 				bgColor="rgb(30 19 53)"
 			>
 				<HStack justifyContent="right">
-					<Link to="/genres">
+					<Link to="/test">
 						<Button
 							marginY={5}
 							size="lg"
@@ -40,7 +40,7 @@ const PlatformPicker = () => {
 							border={5}
 							marginX={10}
 						>
-							Pick Genres
+							Test Page
 						</Button>
 					</Link>
 				</HStack>

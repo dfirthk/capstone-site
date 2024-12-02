@@ -1,14 +1,26 @@
+import Platform from '../entities/Platform';
 
-export const cosineSimilarity = (vec1: number[], vec2: number[]): number => {
-   
-   const dotProduct = vec1.reduce((sum, v, i) => sum + v * vec2[i], 0);
+export const cosineSimilarity = (selectedPlatforms: Platform[], allPlatforms: Platform[]): { platform: Platform, score: number }[] => {
+    const selectedIds = selectedPlatforms.map(platform => platform.id);
 
-   const magnitude1 = Math.sqrt(vec1.reduce((sum, v) => sum + v * v, 0));
-   const magnitude2 = Math.sqrt(vec2.reduce((sum, v) => sum + v * v, 0));
+    const scores = allPlatforms.map(platform => {
+        const platformIds = [platform.id];
+        const score = calculateCosineSimilarity(selectedIds, platformIds);
+        return { platform, score };
+    });
 
-   if (magnitude1 === 0 || magnitude2 === 0) {
-      return 0;
-   }
+    // Sort platforms by similarity score in descending order
+    scores.sort((a, b) => b.score - a.score);
 
-   return dotProduct / (magnitude1 * magnitude2);
+    return scores;
+};
+
+const calculateCosineSimilarity = (selectedIds: number[], platformIds: number[]): number => {
+    const intersection = selectedIds.filter(id => platformIds.includes(id)).length;
+    const magnitudeA = Math.sqrt(selectedIds.length);
+    const magnitudeB = Math.sqrt(platformIds.length);
+
+    if (magnitudeA === 0 || magnitudeB === 0) return 0;
+
+    return intersection / (magnitudeA * magnitudeB);
 };

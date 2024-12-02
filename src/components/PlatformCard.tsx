@@ -1,6 +1,6 @@
 import { Box, Card, CardBody, Heading, Image } from '@chakra-ui/react';
 import Platform from '../entities/Platform';
-import { useSelection } from '../hooks/cardSelection';
+import { usePlatformSelection } from '../hooks/platformSelection';
 import getCroppedImageURL from '../services/image-url';
 
 interface Props {
@@ -8,11 +8,13 @@ interface Props {
 }
 
 const PlatformCard = ({ platform }: Props) => {
-	const { selectedItems, toggleSelection } = useSelection();
+	const { selectedPlatforms, togglePlatformSelection } = usePlatformSelection();
 
-	const isSelected = selectedItems.some(
-		(item) => item.type === 'platform' && item.value === platform.name
-	);
+	const isSelected = selectedPlatforms.some((item) => item.id === platform.id);
+
+	const handleClick = () => {
+		togglePlatformSelection(platform);
+	};
 
 	return (
 		<Box
@@ -22,13 +24,18 @@ const PlatformCard = ({ platform }: Props) => {
 			borderColor={isSelected ? 'green.500' : 'gray.200'}
 			borderRadius="lg"
 			_hover={{ borderColor: 'green.400' }}
-			onClick={() => toggleSelection('platform', platform.name)}
+			onClick={handleClick}
 			transition="border-color 0.2s"
 		>
 			<Card>
-				<Image src={getCroppedImageURL(platform.image_background)} />
+				<Image
+					src={getCroppedImageURL(platform.image_background || '')}
+					alt={platform.name || 'Platform'}
+				/>
 				<CardBody>
-					<Heading fontSize="2xl">{platform.name}</Heading>
+					<Heading fontSize="2xl">
+						{platform.name || 'Unknown Platform'}
+					</Heading>
 				</CardBody>
 			</Card>
 		</Box>

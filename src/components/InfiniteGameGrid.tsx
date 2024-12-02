@@ -5,7 +5,6 @@ import useGames from '../hooks/useGames';
 import GameCard from './GameCard';
 import GameCardContainer from './GameCardContainer';
 import GameCardSkeleton from './GameCardSkeleton';
-import GamePickerCard from './GamePickerCard';
 
 const InfiniteGameGrid = () => {
 	const {
@@ -45,7 +44,7 @@ const InfiniteGameGrid = () => {
 					<React.Fragment key={index}>
 						{page.results.map((game) => (
 							<GameCardContainer key={game.id}>
-								<GamePickerCard game={game} />
+								<GameCard game={game} />
 							</GameCardContainer>
 						))}
 					</React.Fragment>

@@ -60,25 +60,13 @@ const GamePicker = () => {
 			>
 				<HStack justifyContent="space-between" height="100%" align="center">
 					<Link to="/genres">
-						<Button
-							marginY={5}
-							size="lg"
-							borderRadius={15}
-							border={5}
-							marginX={10}
-						>
-							Pick Genres
+						<Button size="lg" colorScheme="teal" marginX={10} marginY={5}>
+							Back: Select Genres
 						</Button>
 					</Link>
-					<Link to="/results">
-						<Button
-							marginY={5}
-							size="lg"
-							borderRadius={15}
-							border={5}
-							marginX={10}
-						>
-							Run Results
+					<Link to="/recommended-platforms">
+						<Button size="lg" colorScheme="teal" marginX={10} marginY={5}>
+							Next: See Recommended Platforms
 						</Button>
 					</Link>
 				</HStack>

@@ -25,12 +25,12 @@ class APICleint<T> {
     return response.data;
   }
 
-  async getAllPaginated(params: Record<string, any> = {}): Promise<T[]> {
+  async getAllPaginated(params: Record<string, any> = {}, maxPages: number = 5): Promise<T[]> {
     let results: T[] = [];
     let nextPage = 1;
     let hasMore = true;
 
-    while (hasMore) {
+    while (hasMore && nextPage <= maxPages) {
       const data = await this.getAll({ ...params, page: nextPage });
       results = results.concat(data.results);
       hasMore = !!data.next;

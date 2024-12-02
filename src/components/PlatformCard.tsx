@@ -1,6 +1,6 @@
 import { Box, Card, CardBody, Heading, Image } from '@chakra-ui/react';
+import { useSelectionContext } from '../context/SelectionContext';
 import Platform from '../entities/Platform';
-import { usePlatformSelection } from '../hooks/platformSelection';
 import getCroppedImageURL from '../services/image-url';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const PlatformCard = ({ platform }: Props) => {
-	const { selectedPlatforms, togglePlatformSelection } = usePlatformSelection();
+	const { selectedPlatforms, togglePlatformSelection } = useSelectionContext();
 
 	const isSelected = selectedPlatforms.some((item) => item.id === platform.id);
 

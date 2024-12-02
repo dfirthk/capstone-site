@@ -14,22 +14,36 @@ const axiosInstance = axios.create({
 });
 
 class APICleint<T> {
-  endpoint: string;
+  private endpoint: string;
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
   }
 
-  getAll = (config: AxiosRequestConfig) => {
-    return axiosInstance
-      .get<FetchResponse<T>>(this.endpoint, config)
-      .then(res => res.data);
-  };
-  
+  async getAll(params: Record<string, any> = {}): Promise<FetchResponse<T>> {
+    const response = await axiosInstance.get<FetchResponse<T>>(this.endpoint, { params });
+    return response.data;
+  }
+
+  async getAllPaginated(params: Record<string, any> = {}): Promise<T[]> {
+    let results: T[] = [];
+    let nextPage = 1;
+    let hasMore = true;
+
+    while (hasMore) {
+      const data = await this.getAll({ ...params, page: nextPage });
+      results = results.concat(data.results);
+      hasMore = !!data.next;
+      nextPage++;
+    }
+
+    return results;
+  }
+
   get = (id: number | string) => {
     return axiosInstance
-    .get<T>(this.endpoint + '/' + id)
-    .then(res => res.data);
+      .get<T>(`${this.endpoint}/${id}`)
+      .then(res => res.data);
   };
 }
 

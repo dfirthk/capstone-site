@@ -1,5 +1,5 @@
 import { Box, Card, CardBody, Heading, HStack, Image } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useSelectionContext } from '../context/SelectionContext';
 import Game from '../entities/Game';
 import getCroppedImageURL from '../services/image-url';
 import CriticScore from './CriticScore';
@@ -9,14 +9,24 @@ interface Props {
 	game: Game;
 }
 
-const GameCard = ({ game }: Props) => {
+const GamePickerCard = ({ game }: Props) => {
+	const { selectedGames, toggleGameSelection } = useSelectionContext();
+
+	const isSelected = selectedGames.some((item) => item.id === game.id);
+
+	const handleClick = () => {
+		toggleGameSelection(game);
+	};
+
 	return (
 		<Box
 			as="button"
 			p={0}
 			borderWidth="10px"
+			borderColor={isSelected ? 'green.500' : 'gray.200'}
 			borderRadius="lg"
 			_hover={{ borderColor: 'green.400' }}
+			onClick={handleClick}
 			transition="border-color 0.2s"
 		>
 			<Card>
@@ -35,4 +45,4 @@ const GameCard = ({ game }: Props) => {
 	);
 };
 
-export default GameCard;
+export default GamePickerCard;

@@ -9,7 +9,7 @@ export interface FetchResponse<T> {
 const axiosInstance = axios.create({
   baseURL: "https://api.rawg.io/api",
   params: {
-    key: "095768fab18f41019538928c56897873",
+    key: "bae4e53041e94cb89a63dc73f7420a56",
   },
 });
 
@@ -25,12 +25,12 @@ class APICleint<T> {
     return response.data;
   }
 
-  async getAllPaginated(params: Record<string, any> = {}, maxPages: number = 5): Promise<T[]> {
+  async getAllPaginated(params: Record<string, any> = {}): Promise<T[]> {
     let results: T[] = [];
     let nextPage = 1;
     let hasMore = true;
 
-    while (hasMore && nextPage <= maxPages) {
+    while (hasMore) {
       const data = await this.getAll({ ...params, page: nextPage });
       results = results.concat(data.results);
       hasMore = !!data.next;

@@ -1,14 +1,26 @@
+export const cosineSimilarity = <T extends { id: number }>(selectedItems: T[], allItems: T[]): { item: T, score: number }[] => {
+  const selectedIds = selectedItems.map(item => item.id);
 
-export const cosineSimilarity = (vec1: number[], vec2: number[]): number => {
-   
-   const dotProduct = vec1.reduce((sum, v, i) => sum + v * vec2[i], 0);
+  const scores = allItems.map(item => {
+    const itemIds = [item.id];
+    const score = calculateCosineSimilarity(selectedIds, itemIds);
+    return { item, score };
+  });
 
-   const magnitude1 = Math.sqrt(vec1.reduce((sum, v) => sum + v * v, 0));
-   const magnitude2 = Math.sqrt(vec2.reduce((sum, v) => sum + v * v, 0));
+  // Sort items by similarity score in descending order
+  scores.sort((a, b) => b.score - a.score);
 
-   if (magnitude1 === 0 || magnitude2 === 0) {
-      return 0;
-   }
+  console.log('Cosine similarity scores:', scores);
 
-   return dotProduct / (magnitude1 * magnitude2);
+  return scores;
+};
+
+const calculateCosineSimilarity = (selectedIds: number[], itemIds: number[]): number => {
+  const intersection = selectedIds.filter(id => itemIds.includes(id)).length;
+  const magnitudeA = Math.sqrt(selectedIds.length);
+  const magnitudeB = Math.sqrt(itemIds.length);
+
+  if (magnitudeA === 0 || magnitudeB === 0) return 0;
+
+  return intersection / (magnitudeA * magnitudeB);
 };

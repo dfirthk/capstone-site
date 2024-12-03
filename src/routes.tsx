@@ -8,6 +8,9 @@ import LandingPage from './pages/LandingPage';
 import Layout from './pages/Layout';
 import Library from './pages/Library';
 import PlatformPicker from './pages/PlatformPicker';
+import RecommendedGames from './pages/RecommendedGames';
+import RecommendedGenres from './pages/RecommendedGenres';
+import RecommendedPlatforms from './pages/RecommnededPlatforms';
 
 const router = createBrowserRouter([
 	{
@@ -22,6 +25,9 @@ const router = createBrowserRouter([
 			{ path: '/genres', element: <GenrePicker /> },
 			{ path: 'gamepicker', element: <GamePicker /> },
 			{ path: '/results', element: <GameRecommender /> },
+			{ path: '/recommended-platforms', element: <RecommendedPlatforms /> },
+			{ path: '/recommended-genres', element: <RecommendedGenres /> },
+			{ path: '/recommended-games', element: <RecommendedGames /> },
 		],
 	},
 ]);

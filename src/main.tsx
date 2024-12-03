@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
+import { SelectionProvider } from './context/SelectionContext';
 import './index.css';
 import router from './routes';
 import theme from './theme';
@@ -15,8 +16,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 		<ChakraProvider theme={theme}>
 			<ColorModeScript initialColorMode={theme.config.initialColorMode} />
 			<QueryClientProvider client={queryClient}>
-				<RouterProvider router={router} />
-				<ReactQueryDevtools />
+				<SelectionProvider>
+					<RouterProvider router={router} />
+					<ReactQueryDevtools />
+				</SelectionProvider>
 			</QueryClientProvider>
 		</ChakraProvider>
 	</React.StrictMode>

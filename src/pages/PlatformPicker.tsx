@@ -1,8 +1,11 @@
 import { Box, Button, Grid, GridItem, Heading, HStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import PlatformGrid from '../components/PlatformGrid';
+import { useSelectionContext } from '../context/SelectionContext';
 
 const PlatformPicker = () => {
+	const { selectedPlatforms } = useSelectionContext();
+
 	return (
 		<Grid
 			templateAreas={{
@@ -33,14 +36,8 @@ const PlatformPicker = () => {
 			>
 				<HStack justifyContent="right">
 					<Link to="/genres">
-						<Button
-							marginY={5}
-							size="lg"
-							borderRadius={15}
-							border={5}
-							marginX={10}
-						>
-							Pick Genres
+						<Button size="lg" colorScheme="teal" marginX={10} marginY={5}>
+							Next: Select Genres
 						</Button>
 					</Link>
 				</HStack>

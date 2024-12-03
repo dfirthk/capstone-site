@@ -1,6 +1,6 @@
 import { Box, Card, CardBody, Heading, Image } from '@chakra-ui/react';
+import { useSelectionContext } from '../context/SelectionContext';
 import Genre from '../entities/Genre';
-import { useSelection } from '../hooks/cardSelection';
 import getCroppedImageURL from '../services/image-url';
 
 interface Props {
@@ -8,11 +8,13 @@ interface Props {
 }
 
 const GenreCard = ({ genre }: Props) => {
-	const { selectedItems, toggleSelection } = useSelection();
+	const { selectedGenres, toggleGenreSelection } = useSelectionContext();
 
-	const isSelected = selectedItems.some(
-		(item) => item.type === 'genre' && item.value === genre.name
-	);
+	const isSelected = selectedGenres.some((item) => item.id === genre.id);
+
+	const handleClick = () => {
+		toggleGenreSelection(genre);
+	};
 
 	return (
 		<Box
@@ -22,13 +24,16 @@ const GenreCard = ({ genre }: Props) => {
 			borderColor={isSelected ? 'green.500' : 'gray.200'}
 			borderRadius="lg"
 			_hover={{ borderColor: 'green.400' }}
-			onClick={() => toggleSelection('genre', genre.name)}
+			onClick={handleClick}
 			transition="border-color 0.2s"
 		>
 			<Card>
-				<Image src={getCroppedImageURL(genre.image_background)} />
+				<Image
+					src={getCroppedImageURL(genre.image_background || '')}
+					alt={genre.name || 'Genre'}
+				/>
 				<CardBody>
-					<Heading fontSize="2xl">{genre.name}</Heading>
+					<Heading fontSize="2xl">{genre.name || 'Unknown Genre'}</Heading>
 				</CardBody>
 			</Card>
 		</Box>

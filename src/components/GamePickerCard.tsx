@@ -1,6 +1,6 @@
 import { Box, Card, CardBody, Heading, HStack, Image } from '@chakra-ui/react';
+import { useSelectionContext } from '../context/SelectionContext';
 import Game from '../entities/Game';
-import { useSelection } from '../hooks/cardSelection';
 import getCroppedImageURL from '../services/image-url';
 import CriticScore from './CriticScore';
 import PlatformIconList from './PlatformIconList';
@@ -9,12 +9,14 @@ interface Props {
 	game: Game;
 }
 
-const GameCard = ({ game }: Props) => {
-	const { selectedItems, toggleSelection } = useSelection();
+const GamePickerCard = ({ game }: Props) => {
+	const { selectedGames, toggleGameSelection } = useSelectionContext();
 
-	const isSelected = selectedItems.some(
-		(item) => item.type === 'game' && item.value === game.name
-	);
+	const isSelected = selectedGames.some((item) => item.id === game.id);
+
+	const handleClick = () => {
+		toggleGameSelection(game);
+	};
 
 	return (
 		<Box
@@ -24,7 +26,7 @@ const GameCard = ({ game }: Props) => {
 			borderColor={isSelected ? 'green.500' : 'gray.200'}
 			borderRadius="lg"
 			_hover={{ borderColor: 'green.400' }}
-			onClick={() => toggleSelection('game', game.name)}
+			onClick={handleClick}
 			transition="border-color 0.2s"
 		>
 			<Card>
@@ -43,4 +45,4 @@ const GameCard = ({ game }: Props) => {
 	);
 };
 
-export default GameCard;
+export default GamePickerCard;

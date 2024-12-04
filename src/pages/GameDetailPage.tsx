@@ -20,7 +20,7 @@ const GameDetailPage = () => {
 			<Grid>
 				<NavBarSearch />
 			</Grid>
-			<SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
+			<SimpleGrid columns={{ base: 1, md: 2 }} spacing={5} paddingY={5}>
 				<GridItem marginX={10}>
 					<Heading>{game.name}</Heading>
 					<ExpandableText>{game.description_raw}</ExpandableText>

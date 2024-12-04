@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { GameRecommender } from './components/GameRecommender';
 import ErrorPage from './pages/ErrorPage';
+import FinishPage from './pages/Finished';
 import GameDetailPage from './pages/GameDetailPage';
 import GamePicker from './pages/GamePicker';
 import GenrePicker from './pages/GenrePicker';
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
 			{ path: '/recommended-platforms', element: <RecommendedPlatforms /> },
 			{ path: '/recommended-genres', element: <RecommendedGenres /> },
 			{ path: '/recommended-games', element: <RecommendedGames /> },
+			{ path: '/finish', element: <FinishPage /> },
 		],
 	},
 ]);

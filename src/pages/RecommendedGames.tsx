@@ -112,9 +112,9 @@ const RecommendedGames: React.FC = () => {
 						Back: Recommended Genres
 					</Button>
 				</Link>
-				<Link to="/recommended-games">
+				<Link to="/finish">
 					<Button size="lg" colorScheme="teal" marginX={10} marginY={5}>
-						Finish: Need to implement
+						Finish
 					</Button>
 				</Link>
 			</HStack>

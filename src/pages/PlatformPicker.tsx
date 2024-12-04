@@ -8,31 +8,30 @@ const PlatformPicker = () => {
 
 	return (
 		<Grid
-			templateAreas={{
-				base: `"main footer"`,
-				lg: `"main main" "footer footer"`,
-			}}
-			templateColumns={{
-				base: '1fr',
-				lg: '200px 1fr',
-			}}
+			templateAreas={`"header header"
+                            "main main"
+                            "footer footer"`}
+			gridTemplateRows={'auto 1fr auto'}
+			gridTemplateColumns={'1fr'}
+			height="100vh"
 		>
 			<GridItem area="main">
-				<Box padding={10}>
-					<Heading fontSize="4xl">
-						Select the platforms you'd like to play on
+				<Box paddingLeft={3}>
+					<Heading as="h1" marginY={5} fontSize="5xl">
+						Select Your Platforms
 					</Heading>
+					<PlatformGrid />
 				</Box>
-				<PlatformGrid />
 			</GridItem>
 			<GridItem
 				area="footer"
-				alignItems="center"
 				position="fixed"
 				bottom={0}
-				width="100%"
+				left={0}
+				right={0}
 				height="100px"
 				bgColor="rgb(30 19 53)"
+				zIndex={10}
 			>
 				<HStack justifyContent="right">
 					<Link to="/genres">

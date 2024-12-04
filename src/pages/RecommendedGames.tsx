@@ -101,6 +101,8 @@ const RecommendedGames: React.FC = () => {
 			<Visuals data={chartData} />
 			<HStack
 				position="fixed"
+				left={0}
+				right={0}
 				bottom={0}
 				width="100%"
 				bgColor="rgb(30 19 53)"

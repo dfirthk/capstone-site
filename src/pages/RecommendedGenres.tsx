@@ -5,7 +5,7 @@ import Visuals from '../components/Visuals';
 import { useSelectionContext } from '../context/SelectionContext';
 import Genre from '../entities/Genre';
 import { cosineSimilarity } from '../hooks/cosineSimilarity';
-import APICleint from '../services/api-client';
+import APIClient from '../services/api-client';
 
 const RecommendedGenres = () => {
 	const { selectedGenres } = useSelectionContext();
@@ -14,14 +14,14 @@ const RecommendedGenres = () => {
 	>([]);
 	const [allGenres, setAllGenres] = useState<Genre[]>([]);
 
-	const genreClient = new APICleint<Genre>('genres');
+	const genreClient = new APIClient<Genre>('genres');
 
 	useEffect(() => {
 		const fetchFilteredGenres = async () => {
 			try {
-				const genres = await genreClient.getAllPaginated();
-				setAllGenres(genres);
-				const recommendations = cosineSimilarity(selectedGenres, genres)
+				const genres = await genreClient.getAll({});
+				setAllGenres(genres.results);
+				const recommendations = cosineSimilarity(selectedGenres, genres.results)
 					.map((rec) => ({ genre: rec.item, score: rec.score }))
 					.filter((rec) => rec.score > 0); // Filter out items with a score of 0%
 				setRecommendedGenres(recommendations.slice(0, 10)); // Get top 10 recommendations
@@ -42,7 +42,7 @@ const RecommendedGenres = () => {
 		const score = recommendation ? recommendation.score : 0;
 		return {
 			name: genre.name,
-			score: parseFloat((score * 100).toFixed(2)),
+			score: parseFloat((score * 10000).toFixed(2)),
 		};
 	});
 
@@ -64,14 +64,16 @@ const RecommendedGenres = () => {
 			<HStack
 				position="fixed"
 				bottom={0}
-				width="100%"
+				left={0}
+				right={0}
+				height="100px"
 				bgColor="rgb(30 19 53)"
 				p={4}
 				justifyContent="space-between"
 			>
-				<Link to="/recommended-platforms">
+				<Link to="/game-picker">
 					<Button size="lg" colorScheme="teal" marginX={10} marginY={5}>
-						Back: Recommended Platforms
+						Back: Select Games
 					</Button>
 				</Link>
 				<Link to="/recommended-games">

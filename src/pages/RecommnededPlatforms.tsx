@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Visuals from '../components/Visuals';
 import { useSelectionContext } from '../context/SelectionContext';
 import { cosineSimilarity } from '../hooks/cosineSimilarity';
-import APICleint from '../services/api-client';
+import APIClient from '../services/api-client';
 
 interface ParentPlatform {
 	id: number;
@@ -18,16 +18,19 @@ const RecommendedPlatforms = () => {
 	>([]);
 	const [allPlatforms, setAllPlatforms] = useState<ParentPlatform[]>([]);
 
-	const platformClient = new APICleint<ParentPlatform>(
+	const platformClient = new APIClient<ParentPlatform>(
 		'platforms/lists/parents'
 	);
 
 	useEffect(() => {
 		const fetchFilteredPlatforms = async () => {
 			try {
-				const platforms = await platformClient.getAllPaginated();
-				setAllPlatforms(platforms);
-				const recommendations = cosineSimilarity(selectedPlatforms, platforms)
+				const platforms = await platformClient.getAll({});
+				setAllPlatforms(platforms.results);
+				const recommendations = cosineSimilarity(
+					selectedPlatforms,
+					platforms.results
+				)
 					.map((rec) => ({ platform: rec.item, score: rec.score }))
 					.filter((rec) => rec.score > 0); // Filter out items with a score of 0%
 				setRecommendedPlatforms(recommendations.slice(0, 10)); // Get top 10 recommendations
@@ -62,7 +65,7 @@ const RecommendedPlatforms = () => {
 				{recommendedPlatforms.map(({ platform, score }) => (
 					<Box key={platform.id} borderWidth="1px" borderRadius="lg" p={4}>
 						<Heading fontSize="xl">{platform.name}</Heading>
-						<Text>Score: {(score * 100).toFixed(2)}%</Text>
+						<Text>Score: {(score * 100).toFixed(2)} %</Text>
 					</Box>
 				))}
 			</VStack>
@@ -70,7 +73,9 @@ const RecommendedPlatforms = () => {
 			<HStack
 				position="fixed"
 				bottom={0}
-				width="100%"
+				left={0}
+				right={0}
+				height="100px"
 				bgColor="rgb(30 19 53)"
 				p={4}
 				justifyContent="space-between"

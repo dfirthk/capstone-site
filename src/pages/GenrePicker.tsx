@@ -1,18 +1,20 @@
 import { Box, Button, Grid, GridItem, Heading, HStack } from '@chakra-ui/react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import GenreGrid from '../components/GenreGrid';
 
-const GenrePicker = () => {
+const GenrePicker: React.FC = () => {
 	return (
 		<Grid
 			templateAreas={{
-				base: `"main footer"`,
+				base: `"main" "footer"`,
 				lg: `"main main" "footer footer"`,
 			}}
 			templateColumns={{
 				base: '1fr',
 				lg: '200px 1fr',
 			}}
+			height="100vh"
 		>
 			<GridItem area="main">
 				<Box padding={10}>
@@ -24,14 +26,15 @@ const GenrePicker = () => {
 			</GridItem>
 			<GridItem
 				area="footer"
-				alignItems="center"
 				position="fixed"
 				bottom={0}
-				width="100%"
+				left={0}
+				right={0}
 				height="100px"
 				bgColor="rgb(30 19 53)"
+				zIndex={10}
 			>
-				<HStack justifyContent="space-between">
+				<HStack justifyContent="space-between" height="100%" align="center">
 					<Link to="/platforms">
 						<Button size="lg" colorScheme="teal" marginX={10} marginY={5}>
 							Back: Select Platforms

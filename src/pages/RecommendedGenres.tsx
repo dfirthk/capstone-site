@@ -21,12 +21,10 @@ const RecommendedGenres = () => {
 			try {
 				const genres = await genreClient.getAllPaginated();
 				setAllGenres(genres);
-				console.log('Fetched genres:', genres);
 				const recommendations = cosineSimilarity(selectedGenres, genres)
 					.map((rec) => ({ genre: rec.item, score: rec.score }))
 					.filter((rec) => rec.score > 0); // Filter out items with a score of 0%
 				setRecommendedGenres(recommendations.slice(0, 10)); // Get top 10 recommendations
-				console.log('Final recommendations:', recommendations);
 			} catch (err) {
 				console.error('Error Fetching Data', err);
 			}

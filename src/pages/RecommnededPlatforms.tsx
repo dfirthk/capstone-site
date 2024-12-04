@@ -27,12 +27,10 @@ const RecommendedPlatforms = () => {
 			try {
 				const platforms = await platformClient.getAllPaginated();
 				setAllPlatforms(platforms);
-				console.log('Fetched parent platforms:', platforms);
 				const recommendations = cosineSimilarity(selectedPlatforms, platforms)
 					.map((rec) => ({ platform: rec.item, score: rec.score }))
 					.filter((rec) => rec.score > 0); // Filter out items with a score of 0%
 				setRecommendedPlatforms(recommendations.slice(0, 10)); // Get top 10 recommendations
-				console.log('Final recommendations:', recommendations);
 			} catch (err) {
 				console.error('Error Fetching Data', err);
 			}

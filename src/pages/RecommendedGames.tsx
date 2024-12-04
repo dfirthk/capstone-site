@@ -7,15 +7,15 @@ import genres from '../data/genres';
 import Game from '../entities/Game';
 
 const getRecommendedGames = (selectedGenres: Set<string>, allGames: Game[]) => {
-	const filteredGames = allGames.filter((game) => {
-		console.log('Game:', game);
-		console.log('Game Genres:', game.genres);
-		return game.genres?.some((genre) => selectedGenres.has(genre.name));
-	});
+	const filteredGames = allGames.filter((game) =>
+		game.genres?.some((genre) => selectedGenres.has(genre.name))
+	);
 
-	console.log('Filtered Games:', filteredGames);
+	const uniqueGames = Array.from(new Set(filteredGames.map((game) => game.id)))
+		.map((id) => filteredGames.find((game) => game.id === id))
+		.filter((game): game is Game => game !== undefined);
 
-	return filteredGames.slice(0, 10); // Get top 10 recommendations
+	return uniqueGames.slice(0, 10); // Get top 10 recommendations
 };
 
 const extractAllGames = (data: any) => {
@@ -29,7 +29,6 @@ const extractAllGames = (data: any) => {
 			allGames.push(game);
 		});
 	});
-	console.log('All Games:', allGames);
 	return allGames;
 };
 
@@ -83,9 +82,16 @@ const RecommendedGames: React.FC = () => {
 				<Text>No recommendations available.</Text>
 			)}
 			<VStack spacing={4} align="stretch" marginY={10}>
-				{recommendedGames.map((game) => (
-					<Box key={game.id} borderWidth="1px" borderRadius="lg" p={4}>
-						<Heading fontSize="xl">{game.name}</Heading>
+				{recommendedGames.map((game, index) => (
+					<Box
+						key={`${game.id}-${index}`}
+						borderWidth="1px"
+						borderRadius="lg"
+						p={4}
+					>
+						<Link to={'/games/' + game.slug}>
+							<Heading fontSize="xl">{game.name}</Heading>
+						</Link>
 					</Box>
 				))}
 			</VStack>

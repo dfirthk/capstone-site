@@ -10,8 +10,6 @@ export const cosineSimilarity = <T extends { id: number }>(selectedItems: T[], a
   // Sort items by similarity score in descending order
   scores.sort((a, b) => b.score - a.score);
 
-  console.log('Cosine similarity scores:', scores);
-
   return scores;
 };
 

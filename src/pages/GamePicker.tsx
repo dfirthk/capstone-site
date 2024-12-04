@@ -36,7 +36,7 @@ const GamePicker: React.FC = () => {
 			<GridItem area="main">
 				<Box paddingLeft={3}>
 					<Heading as="h1" marginY={5} fontSize="5xl">
-						Pick a Few Pouplar Games
+						Pick a Few Popular Games You've Played Before
 					</Heading>
 					<Flex>
 						<Box marginRight={5}>
